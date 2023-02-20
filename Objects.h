@@ -9,17 +9,17 @@
 class Ball : public GameObjects 
 {
 	Texture2D circle_{};
-	float x_speed = 150.f, y_speed = 150.f;
+	float x_speed = init_speed, y_speed = init_speed;
 	float x{}, y{};
 
-	const Paddle* l_padd_ptr;
-	const Paddle* r_padd_ptr;
+	const Paddle* l_padd_ptr{};
+	const Paddle* r_padd_ptr{};
 
-	static bool drawn;
+
+	static constexpr short init_speed = 150.f;
 
 private:
 	void CollisionToColliders();
-	static void Interrupt();
 
 public:
 	void objInit() override;

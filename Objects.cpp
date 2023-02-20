@@ -2,8 +2,6 @@
 
 #include "Objects.h"
 
-bool Ball::drawn = false;
-
 
 void Ball::CollisionToColliders()
 {
@@ -53,19 +51,12 @@ void Ball::CollisionToColliders()
 
 }
 
-void Ball::Interrupt() //todo Create independent message boxes entity
-{
-	if(!drawn && GuiMessageBox({ GetScreenWidth() / 4.f, GetScreenHeight() / 2.f, 300, 200 }, "Ball out", "PONGERS!!", "restart") == 1)
-	{
-		GuiMessageBox({ GetScreenWidth() / 4.f, GetScreenHeight() / 2.f, 0, 0 }, "Ball out", "PONGERS!!", "restart");
-	}
-}
 
 void Ball::objInit()
 {
 
 
-	Image ball_img = LoadImage("../empty.png");
+	Image ball_img = LoadImage("empty.png");
 	ImageResize(&ball_img, 14, 14);
 
 	for (int radius = 6; radius > 0; --radius)
@@ -86,11 +77,13 @@ void Ball::objUpdate()
 {
 	if (x < 0 || x > GetScreenWidth())
 	{
-		//End game
-		Ball::Interrupt();
-		drawn = true;
-
-		std::cout << "X Speed: " << x_speed << " || Y Speed: " << y_speed << '\n' << std::endl;
+		//todo choose bigger font
+		if(GuiMessageBox({ GetScreenWidth() / 4.f, GetScreenHeight() / 2.f, 300, 200 }, "Ball out", "PONGERS!!", "restart") == 1)
+		{
+			x = GetScreenWidth() / 2;
+			x_speed = y_speed = init_speed;
+		}
+			std::cout << "X Speed: " << x_speed << " || Y Speed: " << y_speed << '\n' << std::endl;
 		return;
 	}
 	 
@@ -98,11 +91,13 @@ void Ball::objUpdate()
 
 	if (y > GetScreenHeight() - circle_.height)
 	{
+		x_speed += x_speed > init_speed * 2 ? GetRandomValue(-25, 25) : 5; //avoids same trajectory
 		y = GetScreenHeight() - circle_.height;
 		y_speed *= -1;
 	}
 	if (y < 0)
 	{
+		x_speed += x_speed > init_speed * 2 ? GetRandomValue(-25, 25) : 5; //avoids same trajectory
 		y = 0;
 		y_speed *= -1;
 	}
@@ -126,7 +121,7 @@ void Ball::objUnloadTex()
 
 void Paddle::objInit()
 {
-	Image padd_img = LoadImage("../empty.png");
+	Image padd_img = LoadImage("empty.png");
 	ImageResize(&padd_img, 20, 150);
 	
 	ImageDrawRectangleV(&padd_img, { 0, 0 }, { 20, 50 }, MAROON);
