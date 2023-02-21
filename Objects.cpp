@@ -3,6 +3,7 @@
 #include "Objects.h"
 
 
+
 void Ball::CollisionToColliders()
 {
 	const float circle_wid = circle_.width;
@@ -77,8 +78,8 @@ void Ball::objUpdate()
 {
 	if (x < 0 || x > GetScreenWidth())
 	{
-		//todo choose bigger font
-		if(GuiMessageBox({ GetScreenWidth() / 4.f, GetScreenHeight() / 2.f, 300, 200 }, "Ball out", "PONGERS!!", "restart") == 1)
+		//todo Minimise use of literal values => (encapsulate gui values)
+		if(GuiMessageBox({ GetScreenWidth()/2.f - 150.f, GetScreenHeight()/2.f - 100.f, 300, 200 }, "Ball out", "PONGERS!!", "restart") == 1)
 		{
 			x = GetScreenWidth() / 2;
 			x_speed = y_speed = init_speed;

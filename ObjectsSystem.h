@@ -29,8 +29,16 @@ public:
 
 	World(int w, int h, const char* title)
 	{
+		//=window init
 		InitWindow(w, h, title);
+
+		//===gui init
+		GuiLoadStyle("dark/dark.rgs");
+		GuiSetStyle(DEFAULT, TEXT_SIZE, 30);
+
+		//=====game objs init
 		initAll();
+
 		//call functions requiring glcontext
 	}
 

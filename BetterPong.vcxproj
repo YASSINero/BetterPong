@@ -148,8 +148,15 @@
     <Image Include="empty.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dark\dark.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="ObjectsSystem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dark\dark.rgs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="dark\PixelOperator.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
